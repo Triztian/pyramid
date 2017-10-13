@@ -1,12 +1,5 @@
 # Pyramid
 
-## Contributors:
-
- * Sam Hughes (https://github.com/srh)
- * Chris Hiestand (https://github.com/chrishiestand)
- * Gautam Dey (https://github.com/gdey)
- * Alexander Rolek (https://github.com/ARolek)
- * Julio (Gh??)
 
 In this challenge you have to find the quickest path down the pyramid
 A pyramid is represented as such:
@@ -70,3 +63,11 @@ Usage:
 Flags:
   -h, --help   help for slide
 ```
+
+### Contributors:
+
+ * Sam Hughes (https://github.com/srh)
+ * Chris Hiestand (https://github.com/chrishiestand)
+ * Gautam Dey (https://github.com/gdey)
+ * Alexander Rolek (https://github.com/ARolek)
+ * Julio (Gh??)
