@@ -1,16 +1,18 @@
 package main
 
 import (
-	"bufio"
-	"bytes"
-	"fmt"
-	"io"
-	"log"
-	"os"
+	"math/rand"
 	"sort"
-	"strconv"
-	"strings"
+	"time"
 )
+
+func init() {
+	rand.Seed(time.Now().UTC().UnixNano())
+}
+
+func randInt(min, max int) int {
+	return min + rand.Intn(max-min)
+}
 
 func min(a, b int) int {
 	if a < b {
@@ -20,11 +22,18 @@ func min(a, b int) int {
 	return b
 }
 
+// smallest obtains the smallest integer from an array
 func smallest(n []int) int {
 	sort.Ints(n)
 	return n[0]
 }
 
+// shortest computes the smallest value that is
+// obtained by sliding through the pyramid's levels.
+// Thanks to:
+//
+//		Sam Hughes: https://github.com/srh
+//
 func shortest(pyramid [][]int) int {
 	cur := []int{0}
 	for i := range pyramid {
@@ -53,66 +62,18 @@ func shortest(pyramid [][]int) int {
 	return smallest(cur)
 }
 
-func parse(s string) ([][]int, error) {
-	ns := [][]int{}
-	var lv int
-	for _, line := range strings.Split(s, "\n") {
-		ns = append(ns, []int{})
-		line = strings.Trim(line, " ")
-		for _, item := range strings.Split(line, " ") {
-			n, err := strconv.ParseInt(item, 10, 64)
-			if err != nil {
-				return nil, err
-			}
-			ns[lv] = append(ns[lv], int(n))
+func generate(levels int, min, max int) (ns [][]int) {
+	ns = append(ns, []int{levels})
+
+	for lv := 1; lv <= levels; lv++ {
+		var nlv []int
+
+		for i := 0; i < lv; i++ {
+			nlv = append(nlv, randInt(min, max))
 		}
-		lv++
+
+		ns = append(ns, nlv)
 	}
 
-	return ns, nil
-}
-
-func scanReader(r io.Reader) ([][]int, error) {
-	var ns [][]int
-
-	lsc := bufio.NewScanner(r)
-	lineBuf := bytes.NewBuffer([]byte{})
-	for lsc.Scan() {
-		var lv []int
-
-		lineBuf.Write(lsc.Bytes())
-		nsc := bufio.NewScanner(lineBuf)
-		nsc.Split(bufio.ScanWords)
-		for nsc.Scan() {
-			n, err := strconv.ParseInt(string(nsc.Bytes()), 10, 32)
-			if err != nil {
-				return nil, err
-			}
-			lv = append(lv, int(n))
-		}
-		lineBuf.Reset()
-
-		ns = append(ns, lv)
-	}
-
-	return ns, nil
-}
-
-func main() {
-	// https://www.reddit.com/r/dailyprogrammer/comments/6vi9ro/170823_challenge_328_intermediate_pyramid_sliding/?st=j8oziieq&sh=700700bb
-	file := os.Args[1]
-
-	f, err := os.Open(file)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	pyramid, err := scanReader(f)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	ans := shortest(pyramid[1:])
-
-	fmt.Println("Answer:", ans)
+	return
 }
