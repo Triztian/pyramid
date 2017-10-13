@@ -27,3 +27,38 @@ Flags:
 
 Use "pyramid [command] --help" for more information about a command.
 ```
+
+## Generate
+
+```
+A pyramid is represented as such:
+	1
+	2 3
+	4 5 6
+
+Examples:
+	$ pyramid generate 10
+	$ pyramid generate --min 10 --max 20 10
+
+Usage:
+  pyramid generate [levels] [flags]
+
+Flags:
+  -h, --help      help for generate
+      --max int   The maximum possible value for a node (default 10000000)
+      --min int   The minimum possible value for a node
+```
+
+## Slide
+
+```
+Examples:
+
+	$ pyramid slide /path/to/challenge.txt
+
+Usage:
+  pyramid slide [input.txt] [flags]
+
+Flags:
+  -h, --help   help for slide
+```
