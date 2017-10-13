@@ -70,4 +70,4 @@ Flags:
  * Chris Hiestand (https://github.com/chrishiestand)
  * Gautam Dey (https://github.com/gdey)
  * Alexander Rolek (https://github.com/ARolek)
- * Julio (Gh??)
+ * Julio (https://github.com/ear7h)
